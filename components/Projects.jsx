@@ -28,17 +28,28 @@ export default function Projects() {
         <SectionHeader eyebrow="Selected work" title="Projects" text="Some of the projects I've built." />
         <div className="pg">
           {projects.map((p) => (
-            <article key={p.name} className="gc pj" style={hasDetail(p) ? undefined : { cursor: "default" }} onClick={hasDetail(p) ? () => setSel(p) : undefined}>
-              <Thumb p={p} />
-              <div className="pb">
-                <h3>{p.name}</h3>
-                {p.description && <p>{p.description}</p>}
-                <Tags tags={p.tags} />
-                {p.github && (
-                  <a className="gh" href={p.github} target="_blank" rel="noreferrer" aria-label={`${p.name} GitHub repository`} onClick={(e) => e.stopPropagation()}><Icon name="github" size={15} /></a>
-                )}
-              </div>
-            </article>
+            p.url ? (
+              <a key={p.name} className="gc pj" href={p.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${p.name} website`}>
+                <Thumb p={p} />
+                <div className="pb">
+                  <h3>{p.name}</h3>
+                  {p.description && <p>{p.description}</p>}
+                  <Tags tags={p.tags} />
+                </div>
+              </a>
+            ) : (
+              <article key={p.name} className="gc pj" style={hasDetail(p) ? undefined : { cursor: "default" }} onClick={hasDetail(p) ? () => setSel(p) : undefined}>
+                <Thumb p={p} />
+                <div className="pb">
+                  <h3>{p.name}</h3>
+                  {p.description && <p>{p.description}</p>}
+                  <Tags tags={p.tags} />
+                  {p.github && (
+                    <a className="gh" href={p.github} target="_blank" rel="noreferrer" aria-label={`${p.name} GitHub repository`} onClick={(e) => e.stopPropagation()}><Icon name="github" size={15} /></a>
+                  )}
+                </div>
+              </article>
+            )
           ))}
         </div>
       </Reveal>
